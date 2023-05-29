@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # add models
 from .models import Data
-
+from django.shortcuts import redirect, reverse
 
 # Create your views here.
 
@@ -17,10 +17,47 @@ def index1(request):
                       'data': data
                   })
 
+    # insurt data
+
+def Add_data(request):
+    data = Data()
+    data.title = request.POST.get('title')
+    data.slug = request.POST.get('slug')
+    data.descriptions = request.POST.get('descriptions')
+    data.save()
+    #return render(request,'todoapp/frontend/index.html'
+    #              )
+    return redirect(reverse('imteajsajid'))
+    
+        
+
 def index3(request,id):
+    data = Data.objects.all().values()
+    edit_data = Data.objects.get(id=id)
+    # return HttpResponse(id)
     return render(request,'todoapp/frontend/edit.html',
                   {
-                    #  'data':Data.objects.get(id )
+                      'data': data,
+                      'edit_data': edit_data
                   }
                   )
+    
+    
+    
+def update_data(request , id):
+    data = Data.objects.get(id=id)
+    #return HttpResponse(data)
+    data.title = request.POST.get('title')
+    data.slug = request.POST.get('slug')
+    data.descriptions = request.POST.get('descriptions')
+    data.save()
+    return redirect(reverse('imteajsajid'))
+
+def delete(request, id):
+    data = Data.objects.get(id=id)
+    data.delete()
+    return redirect(reverse('imteajsajid'))
+    
+    
+    
     

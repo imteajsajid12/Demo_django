@@ -6,29 +6,62 @@
 {% endblock %}
 
 {% block main %}
-<div class="table-responsive">
-  <table class="table table-primary">
-    <thead>
-      <tr>
-        <th scope="col">Title</th>
-        <th scope="col"> slug</th>
-        <th scope="col">Dicreption</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for datas in data %}
-      <tr class="">
-        <td scope="row">{{ datas.title}}</td>
-        <td>{{ datas.title}}</td>
-        <td>{{ datas.title}}</td>
-        {% comment %}<td><a name="" id="" class="btn btn-danger" href="{% url 'edit',datas.id %}" role="button">edit</a></td>{% endcomment %}
-      </tr>
-      {% endfor %}
-        
-  </table>
+<br>
+<br>
+<br>
+<div class="container">
+ <div class="row">
+
+  <div class="col-md-6  col-lg-6    ">
+
+    <form class="row g-3" method="post" action="{% url 'savedata' %}">
+      {% csrf_token %}
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Email</label>
+        <input type="text" name="title" class="form-control" id="inputEmail4">
+      </div>
+      <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Password</label>
+        <input type="text" name="slug" class="form-control" id="inputPassword4">
+      </div>
+      <div class="col-md-12">
+        <label for="text" class="form-label">text</label>
+        <input type="text" name="descriptions" class="form-control" id="text">
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6  col-lg-6    ">
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col"> slug</th>
+            <th scope="col">Dicreption</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for datas in data %}
+          <tr class="">
+            <td scope="row">{{ datas.title}}</td>
+            <td>{{ datas.title}}</td>
+            <td>{{ datas.title}}</td>
+            <td>
+              <a name="" id="" class="btn btn-primary"href="{% url 'edit' datas.id %}" role="button">edit</a>
+           <a name="" id="" class="btn btn-danger"href="{% url 'delete' datas.id %}" role="button">Delete</a>
+          </td>
+            
+          </tr>
+          {% endfor %}
+            
+      </table>
+    </div>
+  </div>
+ </div>
 </div>
-
-
-
+</div>
 {% endblock %}
